@@ -31,6 +31,13 @@
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
+
+/**
+ * my routes setting
+ */
+	Router::connect('/preview_markdown/', ['controller' => 'PreviewMarkdown', 'action' => 'index']);
+
+
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
