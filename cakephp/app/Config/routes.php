@@ -31,11 +31,11 @@
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
-
 /**
  * my routes setting
  */
-	Router::connect('/preview_markdown/', ['controller' => 'PreviewMarkdown', 'action' => 'index']);
+	Router::connect('/preview_markdown/',                 ['controller' => 'PreviewMarkdown', 'action' => 'index']);
+	Router::connect('/preview_markdown/getMarkdownData/', ['controller' => 'PreviewMarkdown', 'action' => 'getMarkdownData']);
 
 
 /**
