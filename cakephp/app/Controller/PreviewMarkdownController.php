@@ -19,14 +19,7 @@ class PreviewMarkdownController extends AbstractController{
 		$markdownContent = file_get_contents($file_path);
 		$parsedData = $markdownContent;
 
-		$f = fopen(FILE_DB_PATH . 'markdownPreviewDirectory.csv', 'c+');
-		$directoryPathArray = [];
-		while(($data = fgetcsv($f, 10000)) !== false){
-			$directoryPathArray[] = $data;
-		}
-		fclose($f);
-
-		$this->_setAjaxResponse(['markdownData' => $parsedData, 'directoryPathArray' => $directoryPathArray], 200);
+		$this->_setAjaxResponse(['markdownData' => $parsedData], 200);
 	}
 
 	public function setDirectoryPath(){
