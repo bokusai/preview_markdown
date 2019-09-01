@@ -1,22 +1,43 @@
 <?php
-App::uses('AppController', 'Controller');
+App::uses('AbstractController', 'Controller');
 
-class PreviewMarkdownController extends AppController {
+class PreviewMarkdownController extends AbstractController{
 
 	public function index(){
+		debug(FileDBManager::getInstance()->addCsvData('markdownPreviewDirectory', ['testtesttest', 'ddd']));
+		$data = FileDBManager::getInstance()->getCsvData('markdownPreviewDirectory');
+		debug($data);
 	}
 
 	public function getMarkdownData(){
 		$this->viewClass = 'Json';
-		if(!$this->request->is('ajax')) {
+		if(!$this->request->is('ajax')){
 			return $this->_setAjaxResponse(false, 400);
 		}
-		$data = $this->request->data;
 
 		$file_path = __DIR__ . '/../../../../../test0828/clinic_test.md';
 		$markdownContent = file_get_contents($file_path);
-
 		$parsedData = $markdownContent;
-		$this->_setAjaxResponse(['markdownData' => $parsedData], 200);
+
+		$f = fopen(FILE_DB_PATH . 'markdownPreviewDirectory.csv', 'c+');
+		$directoryPathArray = [];
+		while(($data = fgetcsv($f, 10000)) !== false){
+			$directoryPathArray[] = $data;
+		}
+		fclose($f);
+
+		$this->_setAjaxResponse(['markdownData' => $parsedData, 'directoryPathArray' => $directoryPathArray], 200);
+	}
+
+	public function setDirectoryPath(){
+		$this->viewClass = 'Json';
+		if(!$this->request->is('ajax') && !empty($this->request->data('directoryPath'))){
+			return $this->_setAjaxResponse('false', 400);
+		}
+
+		$addData = [$this->request->data('directoryPath')];
+		FileDBManager::getInstance()->addCsvData('markdownPreviewDirectory', $addData);
+
+		$this->_setAjaxResponse(['success' => true], 200);
 	}
 }

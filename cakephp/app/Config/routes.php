@@ -34,8 +34,9 @@
 /**
  * my routes setting
  */
-	Router::connect('/preview_markdown/',                 ['controller' => 'PreviewMarkdown', 'action' => 'index']);
-	Router::connect('/preview_markdown/getMarkdownData/', ['controller' => 'PreviewMarkdown', 'action' => 'getMarkdownData']);
+	Router::connect('/preview_markdown/',                   ['controller' => 'PreviewMarkdown', 'action' => 'index']);
+	Router::connect('/preview_markdown/getMarkdownData/',   ['controller' => 'PreviewMarkdown', 'action' => 'getMarkdownData']);
+	Router::connect('/preview_markdown/setDirectoryPath/',  ['controller' => 'PreviewMarkdown', 'action' => 'setDirectoryPath']);
 
 
 /**
