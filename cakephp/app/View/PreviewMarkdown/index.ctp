@@ -1,5 +1,5 @@
 <div id="markdown-list-data-provider"
-	data-set-directory-path-url = <?php echo $this->Html->url(['controller' => 'PreviewMarkdown', 'action' => 'setDirectoryPath']); ?>
+	data-set-directory-url = <?php echo $this->Html->url(['controller' => 'PreviewMarkdown', 'action' => 'setDirectory']); ?>
 >
 </div>
 <script>
@@ -7,31 +7,34 @@ jQueryDomReady(function(){
 	let $dataProvider = $('#markdown-list-data-provider');
 
 	let setDirectoryPath = function(){
-		data = {directoryPath: $('#markdown-directory-path-input').val().trim()};
+		let directory = $('#markdown-directory-input').val().trim();
+		let data = {directory: directory};
 		$.ajax({
-			url: $dataProvider.data('setDirectoryPathUrl'),
+			url: $dataProvider.data('setDirectoryUrl'),
 			type: "POST",
 			dataType: "json",
 			data: data,
 		})
 		.done(function(responseData) {
-			console.log(responseData);
+			if(responseData.data.success){
+				window.location.href = window.location.href;
+			}
 		})
 		.fail(function() {
 			console.log('通信失敗');
 		});
 	}
 
-	$('#markdown-directory-path-add-btn').on('click', setDirectoryPath);
+	$('#markdown-directory-add-btn').on('click', setDirectoryPath);
 });
 </script>
 <div class="container">
 	<div class="row">
 		<div class="col-11">
-			<input type="text" id="markdown-directory-path-input" class="form-control" placeholder="プレビューするmarkdownのパスを入力">
+			<input type="text" id="markdown-directory-input" class="form-control" placeholder="プレビューするmarkdownのディレクトリを入力">
 		</div>
 		<div class="col-1">
-			<input type="submit" id="markdown-directory-path-add-btn" class="btn btn-primary" value="追加">
+			<input type="submit" id="markdown-directory-add-btn" class="btn btn-primary" value="追加">
 		</div>
 	</div>
 	<div class="row">

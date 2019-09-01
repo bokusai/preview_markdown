@@ -37,7 +37,7 @@
 	Router::connect('/preview_markdown/',                             ['controller' => 'PreviewMarkdown', 'action' => 'index']);
 	Router::connect('/preview_markdown/preview/:directory',           ['controller' => 'PreviewMarkdown', 'action' => 'preview', 'directory' => '[a-zA-z]+']);
 	Router::connect('/preview_markdown/getMarkdownData/:directory',   ['controller' => 'PreviewMarkdown', 'action' => 'getMarkdownData', 'directoryPath' => '[a-zA-z]+']);
-	Router::connect('/preview_markdown/setDirectory/',                ['controller' => 'PreviewMarkdown', 'action' => 'setDirectory', 'directory' => '[a-zA-z]+']);
+	Router::connect('/preview_markdown/setDirectory/',                ['controller' => 'PreviewMarkdown', 'action' => 'setDirectory']);
 
 
 /**

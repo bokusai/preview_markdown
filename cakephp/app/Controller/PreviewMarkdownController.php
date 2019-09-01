@@ -53,7 +53,7 @@ class PreviewMarkdownController extends AbstractController{
 
 	public function getMarkdownData(){
 		$this->viewClass = 'Json';
-		if(!$this->request->is('ajax') && !empty($this->request->data('directory')) && !empty($this->request->data('fileName'))){
+		if(!$this->request->is('ajax') || empty($this->request->data('directory')) || empty($this->request->data('fileName'))){
 			return $this->_setAjaxResponse(false, 400);
 		}
 
@@ -76,18 +76,20 @@ class PreviewMarkdownController extends AbstractController{
 		return $this->_setAjaxResponse(['markdownData' => $parsedData, 'update' => time()], 200);
 	}
 
-	public function setDirectoryPath(){
+	public function setDirectory(){
 		$this->viewClass = 'Json';
-		if(!$this->request->is('ajax') && !empty($this->request->data('directory'))){
-			return $this->_setAjaxResponse('false', 400);
+		if(!$this->request->is('ajax') || empty($this->request->data('directory'))){
+			return $this->_setAjaxResponse(false, 400);
 		}
 
 		if(!file_exists(ROOT . '/../../' . $this->request->data('directory') . '/')){
-			return $this->_setAjaxResponse(ROOT . '/../../' . $this->request->data('directory') . '/', 404);
+			return $this->_setAjaxResponse(false, 404);
 		}
 
 		$addData = [$this->request->data('directory')];
-		FileDBManager::getInstance()->addCsvData('PreviewMarkdownDirectory', $addData);
+		if(!FileDBManager::getInstance()->addCsvData('PreviewMarkdownDirectory', $addData)){
+			return $this->_setAjaxResponse(false, 500);
+		}
 
 		$this->_setAjaxResponse(['success' => true], 200);
 	}
