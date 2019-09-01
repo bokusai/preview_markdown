@@ -1,37 +1,10 @@
-<div id="markdown-preview-data-provider"
-	data-get-markdown-data-url = <?php echo $this->Html->url(['controller' => 'PreviewMarkdown', 'action' => 'getMarkdownData']); ?>
+<div id="markdown-list-data-provider"
 	data-set-directory-path-url = <?php echo $this->Html->url(['controller' => 'PreviewMarkdown', 'action' => 'setDirectoryPath']); ?>
 >
 </div>
 <script>
 jQueryDomReady(function(){
-	let canPoolingFlag = true;
-	let $dataProvider = $('#markdown-preview-data-provider');
-
-	let render = function(data){
-		if(!data){ return false; }
-		$('#markdown-body').html(data);
-	}
-
-	let getMarkdownData = function(){
-		if(!canPoolingFlag){ return; }
-		canPoolingFlag = false;
-		$.ajax({
-			url: $dataProvider.data('getMarkdownDataUrl'),
-			type: "POST",
-			dataType: "json",
-		})
-		.done(function(responseData) {
-			render(responseData.data.markdownData);
-		})
-		.fail(function() {
-			console.log('通信失敗');
-		})
-		.always(function(){
-			canPoolingFlag = true;
-		});
-	}
-	//window.setInterval(getMarkdownData, 3000);
+	let $dataProvider = $('#markdown-list-data-provider');
 
 	let setDirectoryPath = function(){
 		data = {directoryPath: $('#markdown-directory-path-input').val().trim()};
@@ -63,11 +36,19 @@ jQueryDomReady(function(){
 	</div>
 	<div class="row">
 		<div class="col-9">
-			<div id="markdown-body">
-			</div>
+			<ul id="markdown-project-list">
+				<?php foreach($directoryArray as $directory): ?>
+					<?php $directory = array_shift($directory); ?>
+					<li class="">
+						<a href="<?php echo $this->Html->url(['controller' => 'PreviewMarkdown', 'action' => 'preview', 'directory' => $directory]);?>">
+							<?php echo h($directory);?>
+						</a>
+					</li>
+				<?php endforeach; ?>
+			</ul>
 		</div>
 		<div class="col-3">
-			<div id="markdown-pages">
+			<div id="">
 			</div>
 		</div>
 	</div>

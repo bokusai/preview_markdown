@@ -34,10 +34,10 @@
 /**
  * my routes setting
  */
-	Router::connect('/preview_markdown/',                   ['controller' => 'PreviewMarkdown', 'action' => 'index']);
-	Router::connect('/preview_markdown/:directoryPath',     ['controller' => 'PreviewMarkdown', 'action' => 'index', 'directoryPath' => '[a-zA-z]+']);
-	Router::connect('/preview_markdown/getMarkdownData/',   ['controller' => 'PreviewMarkdown', 'action' => 'getMarkdownData']);
-	Router::connect('/preview_markdown/setDirectoryPath/',  ['controller' => 'PreviewMarkdown', 'action' => 'setDirectoryPath']);
+	Router::connect('/preview_markdown/',                             ['controller' => 'PreviewMarkdown', 'action' => 'index']);
+	Router::connect('/preview_markdown/preview/:directory',           ['controller' => 'PreviewMarkdown', 'action' => 'preview', 'directory' => '[a-zA-z]+']);
+	Router::connect('/preview_markdown/getMarkdownData/:directory',   ['controller' => 'PreviewMarkdown', 'action' => 'getMarkdownData', 'directoryPath' => '[a-zA-z]+']);
+	Router::connect('/preview_markdown/setDirectory/',                ['controller' => 'PreviewMarkdown', 'action' => 'setDirectory', 'directory' => '[a-zA-z]+']);
 
 
 /**
