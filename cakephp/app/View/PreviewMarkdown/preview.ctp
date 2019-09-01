@@ -71,7 +71,7 @@ jQueryDomReady(function(){
 		<div class="col-9">
 			<?php foreach($contentArray as $content): ?>
 				<div class="markdown-body" data-file-name="<?php echo h($content['fileName']);?>" style="display: none;">
-					<?php echo h($content['filePath']); ?>
+					<?php echo $content['filePath']; ?>
 				</div>
 			<?php endforeach; ?>
 		</div>

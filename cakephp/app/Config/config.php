@@ -1,4 +1,5 @@
 <?php
+require(ROOT . "/../vendor/autoload.php");
 define('CLASS_DIR', ROOT . '/class/');
 require CLASS_DIR . 'ClassAutoLoader.php';
 $ClassAutoLoader = new ClassAutoLoader();
