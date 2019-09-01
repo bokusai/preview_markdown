@@ -5,7 +5,7 @@ class FileDBManager{
 	private $__fileDBPath = ROOT . '/../FileDB/';
 
 	const CSV_DATA_ARRAY = [
-		'markdownPreviewDirectory',
+		'PreviewMarkdownDirectory',
 	];
 
 	public static function getInstance(){

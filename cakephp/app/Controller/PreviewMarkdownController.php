@@ -4,9 +4,10 @@ App::uses('AbstractController', 'Controller');
 class PreviewMarkdownController extends AbstractController{
 
 	public function index(){
-		debug(FileDBManager::getInstance()->addCsvData('markdownPreviewDirectory', ['testtesttest', 'ddd']));
-		$data = FileDBManager::getInstance()->getCsvData('markdownPreviewDirectory');
-		debug($data);
+		if(!empty($this->request->params['directoryPath'])){
+			$data = FileDBManager::getInstance()->getCsvData($this->request->params['directoryPath']);
+			debug($data);
+		}
 	}
 
 	public function getMarkdownData(){
@@ -15,7 +16,7 @@ class PreviewMarkdownController extends AbstractController{
 			return $this->_setAjaxResponse(false, 400);
 		}
 
-		$file_path = __DIR__ . '/../../../../../test0828/clinic_test.md';
+		$file_path = ROOT . '/../test0828/clinic_test.md';
 		$markdownContent = file_get_contents($file_path);
 		$parsedData = $markdownContent;
 
@@ -29,7 +30,7 @@ class PreviewMarkdownController extends AbstractController{
 		}
 
 		$addData = [$this->request->data('directoryPath')];
-		FileDBManager::getInstance()->addCsvData('markdownPreviewDirectory', $addData);
+		FileDBManager::getInstance()->addCsvData('PreviewMarkdownDirectory', $addData);
 
 		$this->_setAjaxResponse(['success' => true], 200);
 	}
