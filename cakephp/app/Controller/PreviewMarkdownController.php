@@ -24,11 +24,13 @@ class PreviewMarkdownController extends AbstractController{
 			}
 		}
 
+		$parser = new \cebe\markdown\GithubMarkdown();
+
 		$markdownContentArray = [];
 		foreach($filePathArray as $filePath){
 			$markdownContentArray[] = [
 				'fileName' => $filePath['fileName'],
-				'filePath' => file_get_contents($filePath['filePath'])
+				'filePath' => $parser->parse(file_get_contents($filePath['filePath']))
 			];
 		}
 		return $markdownContentArray;
@@ -66,7 +68,9 @@ class PreviewMarkdownController extends AbstractController{
 		}
 		$this->Session->write($filePath . 'updateTime', $fileUpdateTime);
 
-		$markdownContent = file_get_contents($filePath);
+		$parser = new \cebe\markdown\GithubMarkdown();
+
+		$markdownContent = $parser->parse(file_get_contents($filePath));
 		$parsedData = $markdownContent;
 
 		return $this->_setAjaxResponse(['markdownData' => $parsedData, 'update' => time()], 200);
