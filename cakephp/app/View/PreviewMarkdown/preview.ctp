@@ -98,15 +98,17 @@ jQueryDomReady(function(){
 				</div>
 			<?php endforeach; ?>
 		</div>
-		<button type="button" class="markdown-page-reload btn btn-primary" style="margin-top:40px">リロード</button>
-		<div class="card" style="margin-top:25px">
-			<div class="card-header">ファイル</div>
-			<div id="markdown-page-list" class="list-group">
-				<?php foreach($contentArray as $content): ?>
-					<button class="markdown-page list-group-item list-group-item-action" data-file-name="<?php echo h($content['fileName']);?>">
-						<?php echo h($content['fileName']);?>
-					</button>
-				<?php endforeach;?>
+		<div class="position-absolute" style="max-width:400px; margin-left:20px;">
+			<button type="button" class="markdown-page-reload btn btn-primary" style="margin-top:40px; margin-left:10px;">リロード</button>
+			<div class="card" style="margin-top:25px">
+				<div class="card-header">ファイル</div>
+				<div id="markdown-page-list" class="list-group">
+					<?php foreach($contentArray as $content): ?>
+						<button class="markdown-page list-group-item list-group-item-action" data-file-name="<?php echo h($content['fileName']);?>">
+							<?php echo h($content['fileName']);?>
+						</button>
+					<?php endforeach;?>
+				</div>
 			</div>
 		</div>
 	</div>
